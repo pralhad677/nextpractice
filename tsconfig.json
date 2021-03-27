@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/_app.tsx"  ],
+, "pages/_app.tsx", "pages/client/[id]/[clientId].js", "pages/404.tsx"  ],
   "exclude": [
     "node_modules"
   ]

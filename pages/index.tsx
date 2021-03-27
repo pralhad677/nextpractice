@@ -1,29 +1,38 @@
-
-// import styles from '../styles/Home.module.css'
-// import '../styles/index.css'
-import React,{useState} from 'react'
-import axios from 'axios'
-
-export default function Home() { 
-  let [value,setValue] = useState('')
-
-  async function submit(){
-     let response = await axios(`http://localhost:3000/hello`)
-     let data = await response.data
-     console.log(data)
-  }
-  return (
-    <div className="flex-col justify-end">
-    
-      <form onSubmit={submit}>
-      <label htmlFor="name">Name</label>
-      <input  type="text" id="name"  value={value} onChange={e=>setValue(e.target.value)} className="bg-purple-600"/>
-      <button className="bg-red-200">Add</button>
-      </form>
- 
-        
-
-    
-    </div>
-  )
+import React from 'react'
+import  {NextPage} from 'next'
+import { getFeaturedEvents } from '../dummy-data'
+import EventList from '../components/events/event-list'
+type data ={
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    date: string;
+    image: string;
+    isFeatured: boolean;
 }
+interface InitialProps {
+    greeting:string,
+    getFeaturedEvents:data[]
+}
+interface Props extends InitialProps {}
+
+let Home:NextPage<Props,InitialProps> =(props)=> {
+   console.log('index',props.getFeaturedEvents)
+
+        return (
+        <div>
+            <h1>this is Home</h1>
+            <h1>{props.greeting}</h1>
+            <EventList array={props.getFeaturedEvents}/>
+           
+        </div>
+    )
+}
+// let x=getFeaturedEvents()
+Home.getInitialProps = async () => ({
+    greeting:'Welcome to HomePage',
+    getFeaturedEvents:getFeaturedEvents()
+})
+
+export default Home
